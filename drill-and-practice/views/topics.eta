@@ -29,14 +29,16 @@
   <%if (true){%> <% it.topics.forEach((topic)=>{%>
   <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
     <div class="d-flex gap-1 flex-wrap justify-content-center">
-      <a href="./<%=topic.id%>"><%= topic.name%></a>
+      <a href="topics/<%=topic.id%>"><%= topic.name%></a>
       <span>questions: <%= topic.question_count%></span>
     </div>
-    <button class="btn btn-primary">Delete</button>
+    <form action="topics/<%=topic.id%>/delete" method="post">
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
   </li>
   <%})}else{%> <% it.topics.forEach((topic)=>{%>
   <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
-    <a href="./<%=topic.id%>"><%= topic.name%></a>
+    <a href="topics/<%=topic.id%>"><%= topic.name%></a>
     <span>questions: <%= topic.question_count%></span>
   </li>
   <%})}%>
