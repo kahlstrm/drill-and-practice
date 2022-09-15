@@ -4,18 +4,40 @@
 <%if (true){%>
 <h2 class="pt-5">Add a new topic</h2>
 <form action="/topics" method="POST">
-  <div class=" mb-3">
+  <div class="mb-3">
     <label for="topicname" class="form-label">Topic name</label>
-    <input type="text" class="form-control" id="topicname" name="name" required aria-describedby="topicNameHelp">
-    <div id="topicNameHelp" class="form-text">A new topic name for creating questions, cannot be empty and has to be unique</div>
-    <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute: 'name'}) %>
+    <input
+      type="text"
+      class="form-control"
+      id="topicname"
+      name="name"
+      required
+      aria-describedby="topicNameHelp"
+    />
+    <div id="topicNameHelp" class="form-text">
+      A new topic name for creating questions, cannot be empty and has to be
+      unique
+    </div>
+    <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
+    'name'}) %>
   </div>
   <button type="submit" class="btn btn-primary">Add</button>
 </form>
 <%}%>
 <h2>Quiz topics</h2>
 <ul class="list-group">
-<% it.topics.forEach((topic)=>{%>
-<li class="list-group-item d-flex gap-3 justify-content-between flex-wrap"><a href="topics/<%=topic.id%>"><%= topic.name%></a> <span>questions: <%= topic.question_count%></span></li>
-<%})%>
+  <%if (true){%> <% it.topics.forEach((topic)=>{%>
+  <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
+    <div class="d-flex gap-1 flex-wrap justify-content-center">
+      <a href="topics/<%=topic.id%>"><%= topic.name%></a>
+      <span>questions: <%= topic.question_count%></span>
+    </div>
+    <button class="btn btn-primary">Delete</button>
+  </li>
+  <%})}else{%> <% it.topics.forEach((topic)=>{%>
+  <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
+    <a href="topics/<%=topic.id%>"><%= topic.name%></a>
+    <span>questions: <%= topic.question_count%></span>
+  </li>
+  <%})}%>
 </ul>
