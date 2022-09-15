@@ -1,0 +1,15 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Topics</h1>
+
+<%if (true){%>
+<h2 class="pt-5">Add a new topic</h2>
+<form action="/topics" method="POST">
+  <div class=" mb-3">
+    <label for="topicname" class="form-label">Topic name</label>
+    <input type="text" class="form-control" id="topicname" name="name" required aria-describedby="topicNameHelp">
+    <div id="topicNameHelp" class="form-text">A new topic name for creating questions, cannot be empty</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+<%}%>
