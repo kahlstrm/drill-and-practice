@@ -8,4 +8,20 @@ const getTopicQuestions = async (topic_id) => {
   );
   return res.rows;
 };
-export { getTopicQuestions };
+const removeQuestions = async (topic_id) => {
+  //remove all answers to questions by topic_id
+  await executeQuery(
+    "DELETE FROM question_answers WHERE question_id IN (SELECT id FROM questions WHERE topic_id=$topic_id)",
+    { topic_id }
+  );
+  //remove all question options by topic_id
+  await executeQuery(
+    "DELETE FROM question_answer_options WHERE question_id IN (SELECT id FROM questions WHERE topic_id=$topic_id)",
+    { topic_id }
+  );
+  //remove all questions by topic_id
+  await executeQuery("DELETE FROM questions WHERE topic_id=$topic_id", {
+    topic_id,
+  });
+};
+export { getTopicQuestions, removeQuestions };

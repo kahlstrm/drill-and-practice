@@ -7,4 +7,5 @@ router.get("/", mainController.showMain);
 router.get("/topics", topicController.showTopics);
 router.post("/topics", topicController.addTopic);
 router.get("/topics/:id", topicController.showTopic);
+router.post("/topics/:id/delete", topicController.removeTopic);
 export { router };

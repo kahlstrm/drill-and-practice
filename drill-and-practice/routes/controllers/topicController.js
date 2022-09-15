@@ -45,5 +45,9 @@ const addTopic = async ({ render, request, response }) => {
     showTopics({ render, request, errors });
   }
 };
+const removeTopic = async ({ response, params }) => {
+  await topicService.removeTopic(params.id);
+  await response.redirect("/topics");
+};
 
-export { showTopics, addTopic, showTopic };
+export { showTopics, addTopic, showTopic, removeTopic };

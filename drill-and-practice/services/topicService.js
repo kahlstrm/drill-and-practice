@@ -1,4 +1,5 @@
 import { executeQuery } from "../database/database.js";
+import { removeQuestions } from "./questionService.js";
 const getTopics = async () => {
   //fetch topics and include count of questions for each topic
   const res = await executeQuery(
@@ -11,6 +12,10 @@ const createTopic = async (name, user_id) => {
     "INSERT INTO topics (name,user_id) values ($name,$user_id)",
     { name, user_id }
   );
+};
+const removeTopic = async (id) => {
+  await removeQuestions(id);
+  await executeQuery("DELETE FROM topics WHERE id=$id", { id });
 };
 const findTopicById = async (id) => {
   const res = await executeQuery("SELECT * FROM topics WHERE id=$id", { id });
@@ -28,4 +33,4 @@ const findTopicByName = async (name) => {
   }
   return res.rows[0];
 };
-export { createTopic, findTopicById, findTopicByName, getTopics };
+export { createTopic, findTopicById, findTopicByName, getTopics, removeTopic };
