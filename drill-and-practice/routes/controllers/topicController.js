@@ -35,14 +35,14 @@ const addTopic = async ({ render, request, response }) => {
       errors.name = {
         unique: "name must be unique!",
       };
-      showTopics({ render, request, errors });
+      await showTopics({ render, request, errors });
     } else {
       await topicService.createTopic(name, 1);
       response.redirect("/topics");
     }
   } else {
     console.log(errors);
-    showTopics({ render, request, errors });
+    await showTopics({ render, request, errors });
   }
 };
 const removeTopic = async ({ response, params }) => {
