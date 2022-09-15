@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
 import * as questionService from "../../services/questionService.js";
 import { showTopic } from "./topicController.js";
-const addQuestion = async ({ render, request, params, response }) => {
+const addQuestion = async ({ render, request, params, response, user }) => {
   const topicId = params.id;
   const body = request.body();
   const bodyParams = await body.value;
@@ -15,7 +15,7 @@ const addQuestion = async ({ render, request, params, response }) => {
   };
   const [passes, errors] = await validate({ question_text }, rules);
   if (passes) {
-    await questionService.addQuestion(1, topicId, question_text);
+    await questionService.addQuestion(user.id, topicId, question_text);
     response.redirect(`/topics/${topicId}`);
   } else {
     const errorData = { errors, question_text };

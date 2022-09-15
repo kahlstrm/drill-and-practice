@@ -1,7 +1,7 @@
 <% layout("./layouts/layout.eta") %>
 
 <h1>Topics</h1>
-<%if (true){%>
+<%if (it.user?.admin){%>
 <h2 class="pt-5">Add a new topic</h2>
 <form action="/topics" method="POST">
   <div class="mb-3">
@@ -25,9 +25,8 @@
   <button type="submit" class="btn btn-primary">Add</button>
 </form>
 <%}%>
-<h2>Quiz topics</h2>
 <ul class="list-group">
-  <%if (true){%> <% it.topics.forEach((topic)=>{%>
+  <%if (it.user?.admin){%> <% it.topics.forEach((topic)=>{%>
   <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
     <div class="d-flex gap-1 flex-wrap justify-content-center">
       <a href="topics/<%=topic.id%>"><%= topic.name%></a>

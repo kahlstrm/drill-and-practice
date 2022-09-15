@@ -21,7 +21,12 @@ const showTopic = async ({ params, render, errorData, response }) => {
 const topicRules = {
   name: [v.required, v.minLength(1)],
 };
-const addTopic = async ({ render, request, response }) => {
+const addTopic = async ({ render, request, response, user }) => {
+  //check if user is admin
+  if (!user?.admin) {
+    response.status = 401;
+    return;
+  }
   const body = request.body();
   const params = await body.value;
   const name = params.get("name");
@@ -35,7 +40,7 @@ const addTopic = async ({ render, request, response }) => {
       };
       await showTopics({ render, errors, name });
     } else {
-      await topicService.createTopic(name, 1);
+      await topicService.createTopic(name, user.id);
       response.redirect("/topics");
     }
   } else {
@@ -43,9 +48,14 @@ const addTopic = async ({ render, request, response }) => {
     await showTopics({ render, errors, name });
   }
 };
-const removeTopic = async ({ response, params }) => {
-  await topicService.removeTopic(params.id);
-  await response.redirect("/topics");
+const removeTopic = async ({ user, response, params }) => {
+  //check if user is admin
+  if (user?.admin) {
+    await topicService.removeTopic(params.id);
+    await response.redirect("/topics");
+  } else {
+    response.status = 401;
+  }
 };
 
 export { showTopics, addTopic, showTopic, removeTopic };
