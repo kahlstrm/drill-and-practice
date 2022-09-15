@@ -1,7 +1,28 @@
 <% layout("./layouts/layout.eta") %>
 
 <h1><%= it.topic.name%></h1>
-
+<h2 class="pt-5">Add a new question</h2>
+<form
+  class="container pb-2"
+  action="/topics/<%= it.topic.id%>/questions"
+  method="POST"
+>
+  <div class="form-floating pb-2">
+    <textarea
+      class="form-control"
+      placeholder="Leave a comment here"
+      id="floatingTextarea"
+      name="question_text"
+      style="height: 6rem"
+    ></textarea>
+    <label class="text-dark" for="floatingTextarea">Question</label>
+    <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
+    'question_text'}) %>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary">Add</button>
+  </div>
+</form>
 <h2>Questions</h2>
 
 <ul class="list-group">
