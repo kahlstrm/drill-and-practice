@@ -25,13 +25,13 @@
 </form>
 <h2>Questions</h2>
 
-<ul class="list-group">
+<div class="list-group">
   <% it.questions.forEach((question)=>{%>
-  <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
-    <a href="/topics/<%=it.topic.id%>/questions/<%=question.id%>"
-      ><%= question.question_text%></a
-    >
-    <span>options: <%= question.option_count%></span>
-  </li>
+
+    <a class="list-group-item d-flex justify-content-between flex-wrap" href="/topics/<%=it.topic.id%>/questions/<%=question.id%>"
+      style="column-gap: 5rem;">
+      <span><%= question.question_text%></span>
+      <span>options: <%= question.option_count%></span>
+      </a>
   <%})%>
 </ul>
