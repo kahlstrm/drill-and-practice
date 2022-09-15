@@ -5,4 +5,5 @@ const router = new Router();
 
 router.get("/", mainController.showMain);
 router.get("/topics", topicController.showTopics);
+router.post("/topics", topicController.addTopic);
 export { router };
