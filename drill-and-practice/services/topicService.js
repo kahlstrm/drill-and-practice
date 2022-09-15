@@ -1,6 +1,6 @@
 import { executeQuery } from "../database/database.js";
 const getTopics = async () => {
-  //fetch
+  //fetch topics and include count of questions for each topic
   const res = await executeQuery(
     "SELECT t.*,count(q.id) as question_count from topics as t left join questions as q on t.id=q.topic_id GROUP BY (t.id) ORDER BY t.name"
   );

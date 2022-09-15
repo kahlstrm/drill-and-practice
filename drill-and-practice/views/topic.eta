@@ -1,0 +1,16 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1><%= it.topic.name%></h1>
+
+<h2>Questions</h2>
+
+<ul class="list-group">
+  <% it.questions.forEach((question)=>{%>
+  <li class="list-group-item d-flex gap-3 justify-content-between flex-wrap">
+    <a href="/topics/<%=it.topic.id%>/questions/<%=question.id%>"
+      ><%= question.question_text%></a
+    >
+    <span>options: <%= question.option_count%></span>
+  </li>
+  <%})%>
+</ul>

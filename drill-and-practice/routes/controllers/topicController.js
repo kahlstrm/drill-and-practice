@@ -4,11 +4,21 @@ import {
   validate,
 } from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
 import * as topicService from "../../services/topicService.js";
+import * as questionService from "../../services/questionService.js";
 const showTopics = async ({ render, errors }) => {
   const topics = await topicService.getTopics();
   const data = { topics };
-  console.log(topics);
   await render("topics.eta", { ...data, errors });
+};
+const showTopic = async ({ params, render, errors, response }) => {
+  const topic = await topicService.findTopicById(params.id);
+  const questions = await questionService.getTopicQuestions(params.id);
+  const data = { topic, questions };
+  if (!topic) {
+    response.status = 404;
+    return;
+  }
+  await render("topic.eta", { ...data, errors });
 };
 const addTopic = async ({ render, request, response }) => {
   const body = request.body();
@@ -36,4 +46,4 @@ const addTopic = async ({ render, request, response }) => {
   }
 };
 
-export { showTopics, addTopic };
+export { showTopics, addTopic, showTopic };
