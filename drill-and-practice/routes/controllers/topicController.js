@@ -1,8 +1,5 @@
-import {
-  minLength,
-  required,
-  validate,
-} from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
+import { validasaur as v } from "../../deps.js";
+
 import * as topicService from "../../services/topicService.js";
 import * as questionService from "../../services/questionService.js";
 const showTopics = async ({ render, errors, name }) => {
@@ -21,14 +18,14 @@ const showTopic = async ({ params, render, errorData, response }) => {
   }
   await render("topic.eta", data);
 };
+const topicRules = {
+  name: [v.required, v.minLength(1)],
+};
 const addTopic = async ({ render, request, response }) => {
   const body = request.body();
   const params = await body.value;
   const name = params.get("name");
-  const rules = {
-    name: [required, minLength(1)],
-  };
-  const [passes, errors] = await validate({ name }, rules);
+  const [passes, errors] = await v.validate({ name }, topicRules);
   if (passes) {
     //test if the same name already exists in the database
     const alreadyExists = await topicService.findTopicByName(name);
