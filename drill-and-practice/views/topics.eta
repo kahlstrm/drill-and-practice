@@ -13,6 +13,7 @@
       name="name"
       required
       aria-describedby="topicNameHelp"
+      value="<%= it.name??''%>"
     />
     <div id="topicNameHelp" class="form-text">
       A new topic name for creating questions, cannot be empty and has to be
