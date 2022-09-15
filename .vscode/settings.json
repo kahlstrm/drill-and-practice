@@ -1,0 +1,11 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "deno.suggest.imports.hosts": {
+    "https://deno.land": false
+  },
+  "pid": "96b35d65-6ab9-4fd3-aacd-16fbd46f944f"
+}
