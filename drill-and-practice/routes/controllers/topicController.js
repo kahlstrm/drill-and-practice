@@ -11,8 +11,9 @@ const showTopics = async ({ render, errors }) => {
   await render("topics.eta", { ...data, errors });
 };
 const showTopic = async ({ params, render, errors, response }) => {
-  const topic = await topicService.findTopicById(params.id);
-  const questions = await questionService.getTopicQuestions(params.id);
+  const topicId = params.id;
+  const topic = await topicService.findTopicById(topicId);
+  const questions = await questionService.getTopicQuestions(topicId);
   const data = { topic, questions };
   if (!topic) {
     response.status = 404;
