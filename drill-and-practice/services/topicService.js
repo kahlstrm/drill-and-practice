@@ -19,9 +19,6 @@ const removeTopic = async (id) => {
 };
 const findTopicById = async (id) => {
   const res = await executeQuery("SELECT * FROM topics WHERE id=$id", { id });
-  if (res.rows.length == 0) {
-    return null;
-  }
   return res.rows[0];
 };
 const findTopicByName = async (name) => {
