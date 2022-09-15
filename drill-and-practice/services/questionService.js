@@ -24,4 +24,14 @@ const removeQuestions = async (topic_id) => {
     topic_id,
   });
 };
-export { getTopicQuestions, removeQuestions };
+const addQuestion = async (user_id, topic_id, question_text) => {
+  await executeQuery(
+    "INSERT INTO questions (user_id,topic_id,question_text) values($user_id,$topic_id,$question_text)",
+    {
+      user_id,
+      topic_id,
+      question_text,
+    }
+  );
+};
+export { getTopicQuestions, removeQuestions, addQuestion };
