@@ -1,0 +1,57 @@
+<% layout("./layouts/layout.eta") %>
+<h1><%= it.question.question_text%></h1>
+
+<h2 class="pt-5">Add a new option</h2>
+<form
+  class="container pb-2"
+  action="/topics/<%= it.question.topic_id%>/questions/<%= it.question.id%>/options"
+  method="POST"
+>
+  <div class="input-group">
+    <label for="option_text" class="input-group-text">Option text</label>
+    <textarea
+      class="form-control"
+      id="option_text"
+      aria-label="Option text"
+      name="option_text"
+    >
+<%= it.option_text??''%></textarea
+    >
+  </div>
+
+  <div class="input-group">
+    <label class="input-group-text mx-auto m-4" for="correctcheck">
+      <span>correct: &ThinSpace;</span>
+      <input class="form-check-input mt-0" type="checkbox" id="correctcheck"
+      aria-label="Radio button" name="is_correct" <%= it.is_correct?
+      'checked':''%> /></label
+    >
+  </div>
+  <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
+  'option_text'}) %>
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary">Add</button>
+  </div>
+</form>
+<h2 class="mt-2">Options</h2>
+<div class="list-group list-group-horizontal pb-5">
+  <div class="list-group-item bg-success text-light">correct</div>
+  <div class="list-group-item bg-danger text-light">incorrect</div>
+</div>
+<ul class="list-group">
+  <% it.options.forEach((option)=>{%>
+  <li
+    class="list-group-item text-light d-flex gap-2 justify-content-between align-items-center <%= option.is_correct? 'bg-success':'bg-danger'%>"
+  >
+    <span><%= option.option_text%></span>
+    <span><%= option.count%> guesses</span>
+
+    <form
+      action="<%=it.question.id%>/options/<%= option.id%>/delete"
+      method="post"
+    >
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+  </li>
+  <%})%>
+</ul>
