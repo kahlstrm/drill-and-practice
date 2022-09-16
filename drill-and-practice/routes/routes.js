@@ -3,6 +3,7 @@ import * as mainController from "./controllers/mainController.js";
 import * as topicController from "./controllers/topicController.js";
 import * as questionController from "./controllers/questionController.js";
 import * as authController from "./controllers/authController.js";
+import * as questionApi from "./apis/questionApi.js";
 const router = new Router();
 
 router.get("/", mainController.showMain);
@@ -33,4 +34,9 @@ router.get("/auth/register", authController.showRegister);
 router.post("/auth/register", authController.registerAccount);
 router.post("/auth/login", authController.logIn);
 router.get("/auth/logout", authController.logOut);
+
+//api
+
+router.get("/api/questions/random", questionApi.randomQuestion);
+router.post("/api/questions/answer", questionApi.checkAnswer);
 export { router };
