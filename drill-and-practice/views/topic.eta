@@ -14,7 +14,9 @@
       id="floatingTextarea"
       name="question_text"
       style="height: 6rem"
-    ></textarea>
+    >
+<%= it.question_text??''%></textarea
+    >
     <label class="text-dark" for="floatingTextarea">Question</label>
     <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
     'question_text'}) %>
@@ -28,10 +30,13 @@
 <div class="list-group">
   <% it.questions.forEach((question)=>{%>
 
-    <a class="list-group-item d-flex justify-content-between flex-wrap" href="/topics/<%=it.topic.id%>/questions/<%=question.id%>"
-      style="column-gap: 5rem;">
-      <span><%= question.question_text%></span>
-      <span>options: <%= question.option_count%></span>
-      </a>
+  <a
+    class="list-group-item d-flex justify-content-between flex-wrap"
+    href="/topics/<%=it.topic.id%>/questions/<%=question.id%>"
+    style="column-gap: 5rem"
+  >
+    <span><%= question.question_text%></span>
+    <span>options: <%= question.option_count%></span>
+  </a>
   <%})%>
-</ul>
+</div>

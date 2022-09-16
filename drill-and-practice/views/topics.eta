@@ -25,31 +25,31 @@
   <button type="submit" class="btn btn-primary">Add</button>
 </form>
 <%}%>
-<div class="list-group ">
+<div class="list-group">
   <%if (it.user?.admin){%> <% it.topics.forEach((topic)=>{%>
-    <a
-      class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
-      href="topics/<%=topic.id%>"
-      style="column-gap: 5rem;"
-    >
-      <div>
-        <%= topic.name%>
-        <div class="text-secondary">questions: <%= topic.question_count%></div>
-      </div>
-      <form action="topics/<%=topic.id%>/delete" method="post">
-        <button type="submit" class="btn btn-primary">Delete</button>
-      </form>
-    </a>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+    href="topics/<%=topic.id%>"
+    style="column-gap: 5rem"
+  >
+    <div>
+      <%= topic.name%>
+      <div class="text-secondary">questions: <%= topic.question_count%></div>
+    </div>
+    <form action="topics/<%=topic.id%>/delete" method="post">
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+  </a>
 
   <%})}else{%> <% it.topics.forEach((topic)=>{%>
 
-    <a
-      class=" list-group-item d-flex justify-content-between flex-wrap"
-      href="topics/<%=topic.id%>"
-      style="column-gap: 5rem;"
-    >
-      <span><%= topic.name%></span>
-      <span>questions: <%= topic.question_count%></span>
-    </a>
+  <a
+    class="list-group-item d-flex justify-content-between flex-wrap"
+    href="topics/<%=topic.id%>"
+    style="column-gap: 5rem"
+  >
+    <span><%= topic.name%></span>
+    <span>questions: <%= topic.question_count%></span>
+  </a>
   <%})}%>
-</ul>
+</div>
