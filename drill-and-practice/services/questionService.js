@@ -16,7 +16,7 @@ const getQuestionById = async (id) => {
 };
 const getOptionsById = async (question_id) => {
   const res = await executeQuery(
-    "SELECT o.*,count(qa.id) FROM question_answer_options AS o LEFT JOIN question_answers as qa ON o.question_id=qa.question_id WHERE o.question_id=$question_id GROUP BY (o.id) ORDER BY o.option_text",
+    "SELECT o.*,count(qa.id) FROM question_answer_options AS o LEFT JOIN question_answers as qa ON o.id=qa.question_answer_option_id WHERE o.question_id=$question_id GROUP BY (o.id) ORDER BY o.option_text;",
     { question_id }
   );
   return res.rows;
