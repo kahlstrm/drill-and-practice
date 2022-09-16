@@ -3,10 +3,13 @@ import * as mainController from "./controllers/mainController.js";
 import * as topicController from "./controllers/topicController.js";
 import * as questionController from "./controllers/questionController.js";
 import * as authController from "./controllers/authController.js";
+import * as quizController from "./controllers/quizController.js";
 import * as questionApi from "./apis/questionApi.js";
 const router = new Router();
 
 router.get("/", mainController.showMain);
+//quiz
+router.get("/quiz", quizController.showQuizMain);
 
 //topics
 router.get("/topics", topicController.showTopics);
