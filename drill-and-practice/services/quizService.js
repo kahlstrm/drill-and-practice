@@ -19,10 +19,10 @@ const getRandomQuestion = async (topic_id) => {
   const options = await getOptionsById(question.id);
   return {
     questionId: question.id,
-    questionText: question.question_text,
+    questionText: question.question_text.trim(),
     answerOptions: options.map((option) => ({
       optionId: option.id,
-      optionText: option.option_text,
+      optionText: option.option_text.trim(),
     })),
   };
 };

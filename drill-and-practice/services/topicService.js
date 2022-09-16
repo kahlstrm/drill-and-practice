@@ -10,7 +10,7 @@ const getTopics = async () => {
 const createTopic = async (name, user_id) => {
   await executeQuery(
     "INSERT INTO topics (name,user_id) values ($name,$user_id)",
-    { name, user_id }
+    { name: name.trim(), user_id }
   );
 };
 const removeTopic = async (id) => {

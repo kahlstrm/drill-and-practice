@@ -50,7 +50,7 @@ const addQuestion = async (user_id, topic_id, question_text) => {
     {
       user_id,
       topic_id,
-      question_text,
+      question_text: question_text.trim(),
     }
   );
 };
@@ -64,7 +64,7 @@ const addOption = async (question_id, option_text, is_correct) => {
     "INSERT INTO question_answer_options (question_id,option_text,is_correct) values($question_id,$option_text,$is_correct)",
     {
       question_id,
-      option_text,
+      option_text: option_text.trim(),
       is_correct,
     }
   );

@@ -7,11 +7,11 @@ const findAccountByEmail = async (email) => {
   return res.rows[0];
 };
 const register = async (email, password) => {
-  const pwHash = await bcrypt.hash(password);
+  const pwHash = await bcrypt.hash(password.trim());
   const res = await executeQuery(
     "INSERT INTO users (email,password) values($email,$pwHash) RETURNING id,email,admin",
     {
-      email,
+      email: email.trim(),
       pwHash,
     }
   );
@@ -22,7 +22,7 @@ const login = async (email, password) => {
   if (!account) {
     return null;
   }
-  const res = await bcrypt.compare(password, account.password);
+  const res = await bcrypt.compare(password.trim(), account.password);
   if (res) {
     const { admin, id, email } = account;
     return { admin, id, email };
