@@ -1,0 +1,20 @@
+<% layout("./layouts/layout.eta") %> <% if (it.questionId){%>
+<h1><%= it.questionText%></h1>
+<div class="list-group">
+  <% it.answerOptions.forEach(option=>{%>
+  <li
+    class="list-group-item d-flex justify-content-between align-items-center gap-3"
+  >
+    <div><%= option.optionText %></div>
+
+    <form action="#" method="post">
+      <button type="submit" class="btn btn-primary">Choose</button>
+    </form>
+  </li>
+  <%})%> <% if (it.answerOptions.length==0){%>
+  <h2>No options for the question</h2>
+  <%}%>
+</div>
+<%}else{%>
+<h1>No questions for the topic</h1>
+<%}%>

@@ -1,23 +1,24 @@
 import { executeQuery } from "../database/database.js";
-import { getOptionsById } from "./questionService.js";
-const getRandomQuestion = async (topic_id) => {
+import { getOptionsById, getQuestionById } from "./questionService.js";
+const getRandomQuestionId = async (topic_id) => {
   let res;
   if (topic_id) {
     res = await executeQuery(
-      "SELECT q.* from (questions WHERE topic_id=$topic_id) as q join question_answer_options as qa ON q.id=qa.question_id ORDER BY random() LIMIT 1",
+      "SELECT q.id from (SELECT * from questions WHERE topic_id=$topic_id) as q left join question_answer_options as qa ON q.id=qa.question_id ORDER BY random() LIMIT 1",
       { topic_id }
     );
   } else {
     res = await executeQuery(
-      "SELECT q.* from questions as q join question_answer_options as qa ON q.id=qa.question_id ORDER BY random() LIMIT 1"
+      "SELECT q.id from questions as q left join question_answer_options as qa ON q.id=qa.question_id ORDER BY random() LIMIT 1"
     );
   }
-  const question = res.rows[0];
-  if (!question) {
-    return {};
-  }
-  const options = await getOptionsById(question.id);
+  return res.rows[0]?.id;
+};
+const getQuestion = async (question_id) => {
+  const promises = [getQuestionById(question_id), getOptionsById(question_id)];
+  const [question, options] = await Promise.all(promises);
   return {
+    topicId: question.topic_id,
     questionId: question.id,
     questionText: question.question_text.trim(),
     answerOptions: options.map((option) => ({
@@ -26,5 +27,8 @@ const getRandomQuestion = async (topic_id) => {
     })),
   };
 };
-
-export { getRandomQuestion };
+const getRandomQuestion = async (topic_id) => {
+  const id = await getRandomQuestionId(topic_id);
+  return await getQuestion(id);
+};
+export { getRandomQuestion, getRandomQuestionId, getQuestion };

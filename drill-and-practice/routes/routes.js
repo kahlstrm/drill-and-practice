@@ -10,7 +10,8 @@ const router = new Router();
 router.get("/", mainController.showMain);
 //quiz
 router.get("/quiz", quizController.showQuizMain);
-
+router.get("/quiz/:id", quizController.redirectQuiz);
+router.get("/quiz/:id/questions/:qId", quizController.showQuizQuestion);
 //topics
 router.get("/topics", topicController.showTopics);
 router.post("/topics", topicController.addTopic);
