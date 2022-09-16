@@ -3,8 +3,21 @@ import { executeQuery } from "../database/database.js";
 const getTopicQuestions = async (topic_id) => {
   //fetch topic questions and count amount of options for each question
   const res = await executeQuery(
-    "SELECT q.*,count(o.id) as option_count FROM questions AS q left join question_answer_options AS o ON q.id=o.question_id WHERE topic_id=$topic_id GROUP BY (q.id) ORDER BY q.question_text",
+    "SELECT q.*,COUNT(o.id) AS option_count FROM questions AS q LEFT JOIN question_answer_options AS o ON q.id=o.question_id WHERE topic_id=$topic_id GROUP BY (q.id) ORDER BY q.question_text",
     { topic_id }
+  );
+  return res.rows;
+};
+const getQuestionById = async (id) => {
+  const res = await executeQuery("SELECT * FROM questions WHERE id=$id", {
+    id,
+  });
+  return res.rows[0];
+};
+const getOptionsById = async (id) => {
+  const res = await executeQuery(
+    "SELECT o.*,count(qa.id) FROM question_answer_options AS o LEFT JOIN question_answers as qa ON o.question_id=qa.question_id WHERE o.question_id=$id GROUP BY (o.id) ORDER BY o.option_text",
+    { id }
   );
   return res.rows;
 };
@@ -34,4 +47,21 @@ const addQuestion = async (user_id, topic_id, question_text) => {
     }
   );
 };
-export { getTopicQuestions, removeQuestions, addQuestion };
+const addOption = async (question_id, option_text, is_correct) => {
+  await executeQuery(
+    "INSERT INTO question_answer_options (question_id,option_text,is_correct) values($question_id,$option_text,$is_correct)",
+    {
+      question_id,
+      option_text,
+      is_correct,
+    }
+  );
+};
+export {
+  getTopicQuestions,
+  removeQuestions,
+  addQuestion,
+  addOption,
+  getQuestionById,
+  getOptionsById,
+};
