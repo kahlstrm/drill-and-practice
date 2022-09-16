@@ -1,0 +1,16 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Quiz Topics</h1>
+<div class="list-group">
+  <% it.topics.forEach((topic)=>{%>
+  <a
+    class="list-group-item d-flex justify-content-between align-items-center gap-2 p-3"
+    href="/quiz/<%=topic.id %>"
+  >
+    <%= topic.name%>
+    <span class="badge bg-primary rounded-pill"
+      ><%= topic.question_count%></span
+    ></a
+  >
+  <%}) %>
+</div>
