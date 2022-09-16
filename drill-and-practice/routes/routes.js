@@ -17,6 +17,15 @@ router.post("/topics/:id/delete", topicController.removeTopic);
 router.post("/topics/:id/questions", questionController.addQuestion);
 router.get("/topics/:id/questions/:qId", questionController.showQuestion);
 router.post("/topics/:id/questions/:qId/options", questionController.addOption);
+router.post(
+  "/topics/:id/questions/:qId/delete",
+  questionController.removeQuestion
+);
+router.post(
+  "/topics/:id/questions/:qId/options/:oId/delete",
+  questionController.removeOption
+);
+
 //auth
 
 router.get("/auth/login", authController.showLogin);

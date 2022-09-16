@@ -33,8 +33,23 @@ const addQuestion = async ({ render, request, params, response, user }) => {
     await showTopic({ params, render, errorData, response });
   }
 };
-
-const addOption = async ({ params, request, response, render }) => {
+const removeQuestion = async ({ params, response }) => {
+  const topicId = params.id;
+  const questionId = params.qId;
+  const promises = [
+    questionService.getQuestionById(questionId),
+    questionService.getOptionsById(questionId),
+  ];
+  const [question, options] = await Promise.all(promises);
+  // make sure options is empty AND that the url is accurate
+  if (options.length != 0 || question?.topic_id != topicId) {
+    response.status = 400;
+    return;
+  }
+  await questionService.removeQuestion(questionId);
+  response.redirect(`/topics/${topicId}`);
+};
+const addOption = async ({ params, request, response }) => {
   const body = request.body();
   const bodyParams = await body.value;
   const option_text = bodyParams.get("option_text");
@@ -51,5 +66,23 @@ const addOption = async ({ params, request, response, render }) => {
     await showQuestion({ params, render, errorData, response });
   }
 };
+const removeOption = async ({ params, response }) => {
+  const topicId = params.id;
+  const questionId = params.qId;
+  const optionId = params.oId;
 
-export { addQuestion, showQuestion, addOption };
+  const promises = [
+    questionService.getQuestionById(questionId),
+    questionService.getOptionById(optionId),
+  ];
+  const [question, option] = await Promise.all(promises);
+  if (question?.topic_id != topicId || option?.question_id != questionId) {
+    response.status = 400;
+    return;
+  } else {
+    await questionService.removeOption(optionId);
+    response.redirect(`/topics/${topicId}`);
+  }
+};
+
+export { addQuestion, showQuestion, addOption, removeOption, removeQuestion };

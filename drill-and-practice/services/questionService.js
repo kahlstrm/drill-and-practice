@@ -14,12 +14,19 @@ const getQuestionById = async (id) => {
   });
   return res.rows[0];
 };
-const getOptionsById = async (id) => {
+const getOptionsById = async (question_id) => {
   const res = await executeQuery(
-    "SELECT o.*,count(qa.id) FROM question_answer_options AS o LEFT JOIN question_answers as qa ON o.question_id=qa.question_id WHERE o.question_id=$id GROUP BY (o.id) ORDER BY o.option_text",
-    { id }
+    "SELECT o.*,count(qa.id) FROM question_answer_options AS o LEFT JOIN question_answers as qa ON o.question_id=qa.question_id WHERE o.question_id=$question_id GROUP BY (o.id) ORDER BY o.option_text",
+    { question_id }
   );
   return res.rows;
+};
+const getOptionById = async (id) => {
+  const res = await executeQuery(
+    "SELECT * FROM question_answer_options where id=$id",
+    { id }
+  );
+  return res.rows[0];
 };
 const removeQuestions = async (topic_id) => {
   //remove all answers to questions by topic_id
@@ -47,6 +54,11 @@ const addQuestion = async (user_id, topic_id, question_text) => {
     }
   );
 };
+const removeQuestion = async (question_id) => {
+  await executeQuery("DELETE FROM questions where id=$question_id", {
+    question_id,
+  });
+};
 const addOption = async (question_id, option_text, is_correct) => {
   await executeQuery(
     "INSERT INTO question_answer_options (question_id,option_text,is_correct) values($question_id,$option_text,$is_correct)",
@@ -57,11 +69,24 @@ const addOption = async (question_id, option_text, is_correct) => {
     }
   );
 };
+const removeOption = async (option_id) => {
+  await executeQuery(
+    "DELETE FROM question_answers WHERE question_answer_option_id=$option_id",
+    { option_id }
+  );
+  await executeQuery(
+    "DELETE FROM question_answer_options WHERE id=$option_id",
+    { option_id }
+  );
+};
 export {
   getTopicQuestions,
   removeQuestions,
   addQuestion,
+  removeQuestion,
   addOption,
+  removeOption,
   getQuestionById,
   getOptionsById,
+  getOptionById,
 };
