@@ -7,9 +7,10 @@
   Drill and practice is an application for creating drill practice quizzes
   around certain topics.
 </p>
+<p>There is a Guest Login so no need to register BUT...</p>
 <p>
-  By creating an account/logging in you get access to the application, where you
-  can view topics, add questions with options to the topics.
+  By creating an account in you get to add your questions and options to the
+  topics. Also your answers count towards the statistics this way.
 </p>
 <p>
   In the Quiz tab you can select a topic in which you want to practice and it
