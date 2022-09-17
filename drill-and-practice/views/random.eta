@@ -7,14 +7,23 @@
   >
     <div><%= option.optionText %></div>
 
-    <form action="#" method="post">
+    <form
+      action="<%=it.questionId%>/options/<%= option.optionId%>"
+      method="post"
+    >
       <button type="submit" class="btn btn-primary">Choose</button>
     </form>
   </li>
   <%})%> <% if (it.answerOptions.length==0){%>
   <h2>No options for the question</h2>
+  <a class="btn btn-secondary text-capitalize" href="/quiz/<%=it.topicId%>">
+    Next Question
+  </a>
   <%}%>
 </div>
 <%}else{%>
 <h1>No questions for the topic</h1>
+<a class="btn btn-secondary text-capitalize" href="/quiz/">
+  Back to Topic selection
+</a>
 <%}%>
