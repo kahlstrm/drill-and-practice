@@ -32,7 +32,8 @@
     >
   </div>
   <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
-  'option_text'}) %>
+  'option_text'}) %> <%~ includeFile('./partials/error.eta', { errors:
+  it.errors, attribute: 'user'}) %>
   <div class="d-flex justify-content-center">
     <button type="submit" class="btn btn-primary">Add</button>
   </div>
@@ -49,6 +50,7 @@
   >
     <span><%= option.option_text%></span>
     <span><%= option.count%> guesses</span>
+    <% if(it.user.id){%>
 
     <form
       action="<%=it.question.id%>/options/<%= option.id%>/delete"
@@ -56,6 +58,8 @@
     >
       <button type="submit" class="btn btn-primary">Delete</button>
     </form>
+
+    <%}%>
   </li>
   <%})%>
 </ul>

@@ -40,3 +40,8 @@
     <%}%>
   </div>
 </form>
+<form action="/auth/login/guest" method="post">
+  <button type="submit" class="btn btn-secondary text-capitalize mt-4">
+    Guest Login
+  </button>
+</form>

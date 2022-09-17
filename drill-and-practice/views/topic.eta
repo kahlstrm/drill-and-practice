@@ -19,7 +19,8 @@
     >
     <label class="text-dark" for="floatingTextarea">Question</label>
     <%~ includeFile('./partials/error.eta', { errors: it.errors, attribute:
-    'question_text'}) %>
+    'question_text'}) %> <%~ includeFile('./partials/error.eta', { errors:
+    it.errors, attribute: 'user'}) %>
   </div>
   <div class="d-flex justify-content-center">
     <button type="submit" class="btn btn-primary">Add</button>

@@ -13,7 +13,7 @@ const showQuestion = async ({ params, response, render, errorData }) => {
     return;
   }
   const options = await questionService.getOptionsById(params.qId);
-  render("question.eta", { question, options, errorData });
+  render("question.eta", { ...errorData, question, options });
 };
 
 const addQuestion = async ({ render, request, params, response, user }) => {
@@ -25,10 +25,13 @@ const addQuestion = async ({ render, request, params, response, user }) => {
     question_text: [required, minLength(1)],
   };
   const [passes, errors] = await validate({ question_text }, rules);
-  if (passes) {
+  if (passes && user.id) {
     await questionService.addQuestion(user.id, topicId, question_text);
     response.redirect(`/topics/${topicId}`);
   } else {
+    if (!user.id) {
+      errors.user = { guest: "Please register to add questions" };
+    }
     const errorData = { errors, question_text };
     await showTopic({ params, render, errorData, response });
   }
@@ -49,7 +52,7 @@ const removeQuestion = async ({ params, response }) => {
   await questionService.removeQuestion(questionId);
   response.redirect(`/topics/${topicId}`);
 };
-const addOption = async ({ params, request, response }) => {
+const addOption = async ({ params, request, response, render, user }) => {
   const body = request.body();
   const bodyParams = await body.value;
   const option_text = bodyParams.get("option_text");
@@ -58,15 +61,23 @@ const addOption = async ({ params, request, response }) => {
     option_text: [required, minLength(1)],
   };
   const [passes, errors] = await validate({ option_text }, rules);
-  if (passes) {
+  if (passes && user.id) {
     await questionService.addOption(params.qId, option_text, is_correct);
     response.redirect(`/topics/${params.id}/questions/${params.qId}`);
   } else {
+    if (!user.id) {
+      errors.user = { guest: "Please register to add options" };
+    }
     const errorData = { errors, option_text, is_correct };
+    console.log(errorData);
     await showQuestion({ params, render, errorData, response });
   }
 };
-const removeOption = async ({ params, response }) => {
+const removeOption = async ({ params, response, user }) => {
+  if (!user.id) {
+    response.status = 401;
+    return;
+  }
   const topicId = params.id;
   const questionId = params.qId;
   const optionId = params.oId;

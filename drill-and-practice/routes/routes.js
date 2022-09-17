@@ -44,6 +44,7 @@ router.get("/auth/register", authController.showRegister);
 router.post("/auth/register", authController.registerAccount);
 router.post("/auth/login", authController.logIn);
 router.get("/auth/logout", authController.logOut);
+router.post("/auth/login/guest", authController.guestLogin);
 
 //api
 
