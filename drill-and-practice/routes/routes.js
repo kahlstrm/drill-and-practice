@@ -12,6 +12,12 @@ router.get("/", mainController.showMain);
 router.get("/quiz", quizController.showQuizMain);
 router.get("/quiz/:id", quizController.redirectQuiz);
 router.get("/quiz/:id/questions/:qId", quizController.showQuizQuestion);
+router.post(
+  "/quiz/:id/questions/:qId/options/:oId",
+  quizController.handleAnswer
+);
+router.get("/quiz/:id/questions/:qId/correct", quizController.showIsCorrect);
+router.get("/quiz/:id/questions/:qId/incorrect", quizController.showIncorrect);
 //topics
 router.get("/topics", topicController.showTopics);
 router.post("/topics", topicController.addTopic);

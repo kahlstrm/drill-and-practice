@@ -31,4 +31,15 @@ const getRandomQuestion = async (topic_id) => {
   const id = await getRandomQuestionId(topic_id);
   return await getQuestion(id);
 };
-export { getRandomQuestion, getRandomQuestionId, getQuestion };
+
+const saveAnswer = async (option_id, question_id, user_id) => {
+  await executeQuery(
+    "INSERT INTO question_answers (user_id,question_id,question_answer_option_id) values ($user_id,$question_id,$option_id)",
+    {
+      user_id,
+      option_id,
+      question_id,
+    }
+  );
+};
+export { getRandomQuestion, getRandomQuestionId, getQuestion, saveAnswer };
