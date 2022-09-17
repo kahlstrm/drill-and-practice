@@ -1,0 +1,16 @@
+<% layout("./layouts/layout.eta") %> <% if (it.correct){%>
+<h1 class="text-success">Correct!</h1>
+
+<%}else{%>
+
+<h1 class="text-danger">Incorrect!</h1>
+
+<p class="fs-3">Correct answer was:</p>
+<p class="fs-3">
+  <%= it.correctAnswer?.option_text??'no correct answer for question :D'%>
+</p>
+<%}%>
+
+<a class="btn btn-secondary text-capitalize" href="/quiz/<%=it.topicId%>">
+  Next Question
+</a>
