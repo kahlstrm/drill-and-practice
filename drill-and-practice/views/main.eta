@@ -1,3 +1,42 @@
 <% layout("./layouts/layout.eta") %>
 
-<h1 class="text-center">Hello world!</h1>
+<h1 class="text-center p-4">Welcome to Drill and Practice!</h1>
+
+<h2>I'm sorry what?</h2>
+<p>
+  Drill and practice is an application for creating drill practice quizzes
+  around certain topics.
+</p>
+<p>
+  By creating an account/logging in you get access to the application, where you
+  can view topics, add questions with options to the topics.
+</p>
+<p>
+  In the Quiz tab you can select a topic in which you want to practice and it
+  will give you a random question from that topic.
+</p>
+<p>
+  Answering the questions tells you if you answered correctly or not, and shows
+  the correct answer for the question.
+</p>
+
+<h2>Statistics</h2>
+
+<ul class="list-group">
+  <li class="list-group-item d-flex gap-5 justify-content-between">
+    <span>Topics</span>
+    <span><%= it.topic_count%></span>
+  </li>
+  <li class="list-group-item d-flex gap-5 justify-content-between">
+    <span>Questions</span>
+    <span><%= it.question_count%></span>
+  </li>
+  <li class="list-group-item d-flex gap-5 justify-content-between">
+    <span>Correct answers by users</span>
+    <span><%= it.correct_count%></span>
+  </li>
+  <li class="list-group-item d-flex gap-5 justify-content-between">
+    <span>Incorrect answers by users</span>
+    <span><%= it.incorrect_count%></span>
+  </li>
+</ul>

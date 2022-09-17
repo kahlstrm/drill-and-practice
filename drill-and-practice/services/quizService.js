@@ -1,5 +1,19 @@
 import { executeQuery } from "../database/database.js";
 import { getOptionsById, getQuestionById } from "./questionService.js";
+const getStatistics = async () => {
+  const res = await executeQuery(
+    "select * from\
+     (select count(topics.id) as topic_count from topics) as topics,\
+     (select count(*) as question_count from questions) as questions,\
+     (select count(*) as correct_count from question_answers a\
+      join question_answer_options o on a.question_answer_option_id=o.id\
+       where o.is_correct) as correct_answers,\
+       (select count(*) as incorrect_count from question_answers a\
+       join question_answer_options o on a.question_answer_option_id=o.id\
+        where not o.is_correct) as incorrect_answers"
+  );
+  return res.rows[0];
+};
 const getRandomQuestionId = async (topic_id) => {
   let res;
   if (topic_id) {
@@ -42,4 +56,10 @@ const saveAnswer = async (option_id, question_id, user_id) => {
     }
   );
 };
-export { getRandomQuestion, getRandomQuestionId, getQuestion, saveAnswer };
+export {
+  getRandomQuestion,
+  getRandomQuestionId,
+  getQuestion,
+  saveAnswer,
+  getStatistics,
+};
