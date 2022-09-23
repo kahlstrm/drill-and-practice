@@ -1,0 +1,10 @@
+FROM denoland/deno:alpine-1.22.0
+
+EXPOSE 7777
+
+WORKDIR /app
+COPY ./drill-and-practice .
+ARG DATABASE_URL
+
+
+CMD [ "run", "--unstable", "--allow-net", "--allow-read", "--allow-env", "--no-check", "run-locally.js" ]

@@ -1,7 +1,13 @@
 import { Pool } from "../deps.js";
 
 const CONCURRENT_CONNECTIONS = 2;
-const connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
+const dbUrl = Deno.env.get("DATABASE_URL");
+let connectionPool;
+if (dbUrl) {
+  connectionPool = new Pool(dbUrl, CONCURRENT_CONNECTIONS);
+} else {
+  connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
+}
 
 const executeQuery = async (query, params) => {
   const response = {};
