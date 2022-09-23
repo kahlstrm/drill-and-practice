@@ -25,7 +25,7 @@ In `/drill-and-practice/Dockerfile` to
 
 ## Usage
 
-The application is hosted on
+The application is live on https://drill-and-practice-production.up.railway.app/
 
 ### Main page
 
