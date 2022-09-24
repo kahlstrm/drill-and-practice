@@ -13,6 +13,9 @@ You need [Docker](https://docs.docker.com/get-docker/)
 
 start with `docker compose up` and go to http://localhost:7777
 
+Flyway creates a testing an admin account for the local test env with the
+credentials `admin@admin.com` and `123456`
+
 If you are using an M1/M2 Mac: then do the following :
 
 replace
@@ -22,6 +25,12 @@ replace
 In `/drill-and-practice/Dockerfile` to
 
     FROM lukechannings/deno:v1.22.0
+
+## Testing
+
+You can run all of tests with
+
+    docker compose run --rm drill-and-practice test --allow-all
 
 ## Usage
 
