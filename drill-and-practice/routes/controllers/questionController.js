@@ -92,7 +92,7 @@ const removeOption = async ({ params, response, user }) => {
     return;
   } else {
     await questionService.removeOption(optionId);
-    response.redirect(`/topics/${topicId}`);
+    response.redirect(`/topics/${topicId}/questions/${questionId}`);
   }
 };
 
