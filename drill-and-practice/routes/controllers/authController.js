@@ -47,7 +47,7 @@ const logIn = async ({ render, request, state, response }) => {
     return showLogin({ render, errorData });
   }
   await state.session.set("user", user);
-  response.redirect("/");
+  response.redirect("/topics");
 };
 const logOut = async (ctx) => {
   await ctx.state.session.deleteSession(ctx);
@@ -59,6 +59,6 @@ const guestLogin = async ({ user, state, response }) => {
     return;
   }
   await state.session.set("user", { email: "guest@guest.com", id: 0 });
-  response.redirect("/");
+  response.redirect("/topics");
 };
 export { guestLogin, showLogin, showRegister, registerAccount, logIn, logOut };

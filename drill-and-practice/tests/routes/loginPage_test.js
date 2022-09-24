@@ -15,7 +15,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Logging in successfully redirects to /",
+  name: "Logging in successfully redirects to /topics",
   async fn() {
     const client = await superoak(app);
     await client
@@ -23,7 +23,7 @@ Deno.test({
       .set("Content-type", "application/x-www-form-urlencoded")
       .send("email=admin@admin.com&password=123456")
       .expect(302)
-      .expect("location", "/");
+      .expect("location", "/topics");
   },
   sanitizeResources: false,
   sanitizeOps: false,
