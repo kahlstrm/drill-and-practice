@@ -4,6 +4,7 @@ import { getOptionById } from "../../services/questionService.js";
 
 const randomQuestion = async ({ response }) => {
   const question = await quizService.getRandomQuestion();
+  delete question.topicId;
   response.body = question;
 };
 
@@ -17,7 +18,7 @@ const checkAnswer = async ({ request, response }) => {
   const [passes, errors] = await v.validate(doc, rules);
   if (passes) {
     const option = await getOptionById(doc.optionId);
-    if (!option || option.question_id != questionId) {
+    if (!option || option.question_id != doc.questionId) {
       response.status = 400;
       return;
     }
