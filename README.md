@@ -34,7 +34,7 @@ You can run all of tests with
 
 ## Usage
 
-The application is live on https://drill-and-practice-production.up.railway.app/
+The application is live on https://drill-n-practice.herokuapp.com/
 
 ### Main page
 
