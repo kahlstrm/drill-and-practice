@@ -7,4 +7,4 @@ COPY ./drill-and-practice .
 ARG DATABASE_URL
 
 
-CMD [ "run", "--unstable", "--allow-net", "--allow-read", "--allow-env", "--no-check", "run-locally.js" ]
+CMD [ "run", "--unstable", "--allow-net", "--allow-read", "--allow-env", "--no-check","--unsafely-ignore-certificate-errors", "run-locally.js" ]
