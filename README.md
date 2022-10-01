@@ -2,6 +2,8 @@
 
 A web app for creating topic based quiz questions with auth
 
+The application is live on https://drill-n-practice.herokuapp.com/
+
 Creating questions and options for questions is limited to users and creating
 question topics is limited to administrators.
 
@@ -33,8 +35,6 @@ You can run all of tests with
     docker compose run --rm drill-and-practice test --allow-all
 
 ## Usage
-
-The application is live on https://drill-n-practice.herokuapp.com/
 
 ### Main page
 
