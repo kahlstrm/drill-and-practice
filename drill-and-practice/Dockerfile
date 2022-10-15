@@ -1,4 +1,4 @@
-FROM lukechannings/deno:v1.22.0
+FROM denoland/deno:alpine-1.22
 
 EXPOSE 7777
 
